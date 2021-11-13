@@ -40,7 +40,6 @@ class SignUper(object):
             # print("当前使用的是Linux系统")
             Config.CHROME_DIRVER_PATH = 'libs/chromedriver'
             Config.SYSTEM_IS_LINUX = True
-            os.system('cat /proc/cpuinfo')
         else:
             # print("当前使用的是其他系统")
             Config.CHROME_DIRVER_PATH = 'libs/mac_chromedriver'
