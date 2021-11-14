@@ -14,9 +14,18 @@ pip3 install selenium
 pip3 install Pillow
 pip3 install requests
 ```
+
 ## 使用
 
 ```bash 
 python3 main.py
 python3 Refresh.py
+```
+## 添加计划任务
+```bash 
+vim /etc/crontab
+```
+```bash 
+*/5 * * * * root cd /www/code/SignUper && PYTHONIOENCODING=utf-8 /usr/bin/python3 Refresh.py >> logs/refresh.log 2>&1
+5,32 * * * * root cd /www/code/SignUper && PYTHONIOENCODING=utf-8 /usr/bin/python3 main.py >> logs/reg.log 2>&1
 ```

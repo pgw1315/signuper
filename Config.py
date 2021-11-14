@@ -32,5 +32,9 @@ class Config(object):
     # 是否是Linux系统
     SYSTEM_IS_LINUX = False
     # 机场网址
-    AIRPORT_SITE_LIST = ['https://www.reoen.top']
-    # AIRPORT_SITE_LIST = ['https://xniuniu.xyz','https://www.wiougong.fun']
+    # AIRPORT_SITE_LIST = ['https://www.reoen.top']
+    AIRPORT_SITE_LIST = [
+        'https://xniuniu.xyz',
+        'https://www.wiougong.fun',
+        'https://www.jafiyun.icu'
+    ]
