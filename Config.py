@@ -28,7 +28,7 @@ class Config(object):
     # 浏览器最终是否以无头的方法运行
     CHROME_RUN_NO_HEAD = False
     # 浏览器驱动位置
-    CHROME_DIRVER_PATH = None
+    CHROME_DIRVER_PATH = "libs"
     # 是否是Linux系统
     SYSTEM_IS_LINUX = False
     # 机场网址

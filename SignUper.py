@@ -38,11 +38,11 @@ class SignUper(object):
         sysstr = platform.system()
         if sysstr == "Linux":
             # print("当前使用的是Linux系统")
-            Config.CHROME_DIRVER_PATH = 'libs/chromedriver'
+            Config.CHROME_DIRVER_PATH += '/chromedriver'
             Config.SYSTEM_IS_LINUX = True
         else:
             # print("当前使用的是其他系统")
-            Config.CHROME_DIRVER_PATH = 'libs/mac_chromedriver'
+            Config.CHROME_DIRVER_PATH += '/mac_chromedriver'
             Config.SYSTEM_IS_LINUX = False
         pass
 
@@ -50,23 +50,24 @@ class SignUper(object):
         """
 初始化驱动所有设置
         """
-        self.chrome_options = Options()
+        chrome_options = Options()
         # 设置浏览器是否无头运行，如果是Linux系统则默认无头运行，如果是其他系统，则根据CHROME_NO_HEAD的值决定是否无头运行呢
         if Config.SYSTEM_IS_LINUX:
-            self.chrome_options.add_argument("--headless")
-            self.chrome_options.add_argument('--disable-gpu')
-            self.chrome_options.add_argument('--no-sandbox')  # 禁止沙箱模式，否则肯能会报错遇到chrome异常
+            chrome_options.add_argument("--headless")
+            chrome_options.add_argument('--disable-gpu')
+            chrome_options.add_argument('--no-sandbox')  # 禁止沙箱模式，否则肯能会报错遇到chrome异常
             Config.CHROME_RUN_NO_HEAD = True
         else:
             if Config.CHROME_NO_HEAD:
-                self.chrome_options.add_argument("--headless")
-                self.chrome_options.add_argument('--disable-gpu')
-                self.chrome_options.add_argument('--no-sandbox')  # 禁止沙箱模式，否则肯能会报错遇到chrome异常
+                chrome_options.add_argument("--headless")
+                chrome_options.add_argument('--disable-gpu')
+                chrome_options.add_argument('--no-sandbox')  # 禁止沙箱模式，否则肯能会报错遇到chrome异常
                 Config.CHROME_RUN_NO_HEAD = True
-        self.driver = webdriver.Chrome(executable_path=Config.CHROME_DIRVER_PATH, chrome_options=self.chrome_options)
-        self.driver.maximize_window()
+        driver = webdriver.Chrome(executable_path=Config.CHROME_DIRVER_PATH, chrome_options=chrome_options)
+        driver.maximize_window()
         # 隐式等待
-        self.driver.implicitly_wait(20)
+        driver.implicitly_wait(20)
+        return driver
 
     def __init__(self):
         self.user = generates_random_user()
@@ -87,8 +88,7 @@ class SignUper(object):
         for site in Config.AIRPORT_SITE_LIST:
             site_reg_url = site + '/auth/register'
             try:
-                # 初始化浏览器
-                self.init_dirver()
+                self.driver = self.init_dirver()
                 self.driver.get(site_reg_url)
                 print('打开网址：' + site_reg_url)
             except Exception as e:
@@ -130,7 +130,7 @@ class SignUper(object):
             print('注册成功:' + self.user)
             time.sleep(3)
             # 点击签到
-            self.driver.find_element(By.ID,'checkin-div').click()
+            self.driver.find_element(By.ID, 'checkin-div').click()
             print('签到完成！')
             # 匹配域名
             domain_name = get_domain_name(site)

@@ -9,13 +9,16 @@
 @说明 :   
 
 '''
+import time
 
 from SignUper import SignUper
 
-
-
 if __name__ == '__main__':
+    strftime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    print('********************开始时间：' + strftime + '*******************')
     sign_uper = SignUper()
     sign_uper.signup()
+    strftime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    print('********************结束时间：' + strftime + '*******************')
 
     pass
